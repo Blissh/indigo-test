@@ -1,0 +1,29 @@
+# Docker Compose para desarrollo
+version: '3.8'
+
+services:
+  productsapi:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: productsapi
+    ports:
+      - "5000:5000"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:5000
+      # Connection Strings
+      - ConnectionStrings__SqlConnection=${SQL_CONNECTION:-Server=ssindigodev.database.windows.net;Database=prueba_indigo;User Id=dbaIndigo;Password=%FY!4%k4p;}
+      - ConnectionStrings__BlobStorageConnection=${BLOB_STORAGE_CONNECTION:-sp=racwdli&st=2025-11-08T02:41:42Z&se=2025-11-09T01:00:00Z&spr=https&sv=2024-11-04&sr=c&sig=eUn3Pd4N0MfYfNLg7XNobSph9HGudetiFAKQOF0uDZY%3D}
+      # JWT Configuration
+      - Jwt__Key=${JWT_KEY:-IndigoSecretKeyForJWTToken2024ProductsAPI-MustBeAtLeast32CharactersLong!}
+      - Jwt__Issuer=${JWT_ISSUER:-ProductsAPI}
+      - Jwt__Audience=${JWT_AUDIENCE:-ProductsAPIUsers}
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:5000/api/v1/auth/login || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
