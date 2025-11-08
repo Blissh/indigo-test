@@ -7,21 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Application\Interfaces\**" />
-    <Compile Remove="Application\Services\**" />
-    <Compile Remove="Domain\DTOs\**" />
-    <Content Remove="Application\Interfaces\**" />
-    <Content Remove="Application\Services\**" />
-    <Content Remove="Domain\DTOs\**" />
-    <EmbeddedResource Remove="Application\Interfaces\**" />
-    <EmbeddedResource Remove="Application\Services\**" />
-    <EmbeddedResource Remove="Domain\DTOs\**" />
-    <None Remove="Application\Interfaces\**" />
-    <None Remove="Application\Services\**" />
-    <None Remove="Domain\DTOs\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.10">
@@ -29,12 +14,14 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.10" />
+    <PackageReference Include="Scalar.AspNetCore" Version="2.10.1" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Domain\DTOs\Data\" />
+    <Folder Include="Domain\DTOs\Responses\" />
+    <Folder Include="Domain\DTOs\Requests\" />
     <Folder Include="Tests\" />
-    <Folder Include="Application\" />
-    <Folder Include="API\" />
   </ItemGroup>
 
   <ItemGroup>

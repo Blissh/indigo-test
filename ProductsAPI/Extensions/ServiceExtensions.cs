@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using ProductsAPI.Application.Interfaces;
+using ProductsAPI.Application.Services;
 using ProductsAPI.Infrastructure.Persistence;
 using System.Reflection;
 
@@ -13,6 +15,9 @@ namespace ProductsAPI.Extensions
 
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("SqlConnection") ?? throw new InvalidOperationException("Connection string 'SqlConnection' not found.")));
+
+            // Services
+            builder.Services.AddScoped<IUserAuthService, UserAuthService>();
         }
     }
 }
