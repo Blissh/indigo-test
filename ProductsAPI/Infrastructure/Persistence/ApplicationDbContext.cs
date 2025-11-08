@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using ProductsAPI.src.Domain.Entities;
+using ProductsAPI.Domain.Entities;
 
-namespace ProductsAPI.src.Infrastructure.Persistence
+namespace ProductsAPI.Infrastructure.Persistence
 {
     public class ApplicationDbContext : DbContext
     {

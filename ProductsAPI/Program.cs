@@ -1,13 +1,11 @@
-using Microsoft.EntityFrameworkCore;
-using ProductsAPI.src.Infrastructure.Persistence;
+using ProductsAPI.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddOpenApi();
+// Configurar servicios de la aplicación
+builder.AddApplicationServices();
 
-var connectionString = builder.Configuration.GetConnectionString("SqlConnection");
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString ?? throw new InvalidOperationException("Connection string 'SqlConnection' not found.")));
+builder.Services.AddOpenApi();
 
 var app = builder.Build();
 

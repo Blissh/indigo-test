@@ -1,4 +1,4 @@
-﻿namespace ProductsAPI.src.Domain.Entities
+﻿namespace ProductsAPI.Domain.Entities
 {
     public class SaleItems
     {
