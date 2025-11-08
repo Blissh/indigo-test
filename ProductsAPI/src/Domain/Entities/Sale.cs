@@ -7,6 +7,5 @@
         public DateTime Date { get; set; }
         public decimal Total { get; set; }
         public IReadOnlyCollection<SaleItems> Items => _items;
-        
     }
 }
