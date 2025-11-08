@@ -46,6 +46,16 @@ namespace ProductsAPI.API
             .Produces<UserResponse>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status400BadRequest)
             .WithName("RegisterUser");
+
+            endpoints.MapGet("/auth/health", [Authorize] async (HttpContext context, IUserAuthService userAuthService) =>
+            {
+                return Results.Ok(new { message = "API de autenticación está funcionando correctamente" });
+            }).WithTags("Authentication")
+            .WithSummary("Verificar estado de la API de autenticación")
+            .WithDescription("Verifica si la API de autenticación está funcionando correctamente")
+            .Produces(StatusCodes.Status200OK)
+            .Produces(StatusCodes.Status401Unauthorized)
+            .WithName("HealthCheck");
             
             return endpoints;
         }
