@@ -22,6 +22,10 @@ namespace ProductsAPI.API
 
                 return Results.Ok(new { token = token });
             }).WithTags("Authentication")
+            .Accepts<LoginRequest>("application/json")
+            .Produces<string>(StatusCodes.Status200OK)
+            .Produces(StatusCodes.Status400BadRequest)
+            .Produces(StatusCodes.Status401Unauthorized)
             .WithName("LoginUser");
 
             endpoints.MapPost("/auth/register", [AllowAnonymous] async (HttpContext context, IUserAuthService userAuthService) =>
@@ -34,6 +38,9 @@ namespace ProductsAPI.API
 
                 return Results.Ok(new { user = user });
             }).WithTags("Authentication")
+            .Accepts<RegisterUserRequest>("application/json")
+            .Produces<User>(StatusCodes.Status200OK)
+            .Produces(StatusCodes.Status400BadRequest)
             .WithName("RegisterUser");
             
             return endpoints;

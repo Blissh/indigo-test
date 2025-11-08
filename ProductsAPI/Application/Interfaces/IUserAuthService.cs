@@ -5,7 +5,7 @@ namespace ProductsAPI.Application.Interfaces
 {
     public interface IUserAuthService
     {
-        Task<string> LoginUser(LoginRequest request);
+        Task<string?> LoginUser(LoginRequest request);
         Task<User?> RegisterUser(RegisterUserRequest request);
     }
 }
