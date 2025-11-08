@@ -1,6 +1,9 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using ProductsAPI.API;
 using ProductsAPI.Extensions;
 using Scalar.AspNetCore;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +12,33 @@ builder.AddApplicationServices();
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddOpenApi();
+
+// Configurar autenticación JWT
+var jwtKey = builder.Configuration["Jwt:Key"] ?? throw new InvalidOperationException("JWT Key no está configurada");
+var jwtIssuer = builder.Configuration["Jwt:Issuer"] ?? throw new InvalidOperationException("JWT Issuer no está configurado");
+var jwtAudience = builder.Configuration["Jwt:Audience"] ?? throw new InvalidOperationException("JWT Audience no está configurado");
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = jwtIssuer,
+        ValidAudience = jwtAudience,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey)),
+        ClockSkew = TimeSpan.Zero
+    };
+});
+
+builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
@@ -21,10 +51,15 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+// Configurar middleware de autenticación y autorización
+app.UseAuthentication();
+app.UseAuthorization();
+
 app.MapGroup("/api/v1/")
     .WithTags("ProductsAPI")
     .MapAuthenticationEndpoints()
-    .MapProductEndpoints();
+    .MapProductEndpoints()
+    .MapSalesEndpoints();
 
 
 app.Run();
