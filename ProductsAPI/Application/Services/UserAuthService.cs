@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using ProductsAPI.Application.Interfaces;
 using ProductsAPI.Domain.DTOs.Requests;
+using ProductsAPI.Domain.DTOs.Responses;
 using ProductsAPI.Domain.Entities;
 using ProductsAPI.Infrastructure.Persistence;
 using System.IdentityModel.Tokens.Jwt;
@@ -27,7 +28,7 @@ namespace ProductsAPI.Application.Services
             _logger = logger;
         }
 
-        public async Task<string?> LoginUser(LoginRequest request)
+        public async Task<AuthResponse?> LoginUser(LoginRequest request)
         {
             try
             {
@@ -47,7 +48,16 @@ namespace ProductsAPI.Application.Services
                 }
 
                 _logger.LogInformation("Login exitoso para el usuario: {Email}", request.Email);
-                return GenerateToken(user);
+                
+                var token = GenerateToken(user);
+                var expiresAt = DateTime.UtcNow.AddMinutes(30);
+
+                return new AuthResponse
+                {
+                    Token = token,
+                    User = MapToUserResponse(user),
+                    ExpiresAt = expiresAt
+                };
             }
             catch (DbUpdateException ex)
             {
@@ -61,7 +71,7 @@ namespace ProductsAPI.Application.Services
             }
         }
 
-        public async Task<User?> RegisterUser(RegisterUserRequest request)
+        public async Task<UserResponse?> RegisterUser(RegisterUserRequest request)
         {
             try
             {
@@ -87,7 +97,8 @@ namespace ProductsAPI.Application.Services
                 await _context.SaveChangesAsync();
 
                 _logger.LogInformation("Usuario registrado exitosamente: {Email}", request.Email);
-                return user;
+                
+                return MapToUserResponse(user);
             }
             catch (DbUpdateException ex)
             {
@@ -154,6 +165,16 @@ namespace ProductsAPI.Application.Services
             }
         }
 
-
+        private UserResponse MapToUserResponse(User user)
+        {
+            return new UserResponse
+            {
+                Id = user.Id,
+                Name = user.Name,
+                Email = user.Email,
+                CreatedAt = user.CreatedAt,
+                UpdatedAt = user.UpdatedAt
+            };
+        }
     }
 }
