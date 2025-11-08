@@ -23,6 +23,7 @@ namespace ProductsAPI.Extensions
             builder.Services.AddScoped<IUserAuthService, UserAuthService>();
             builder.Services.AddScoped<IProductService, ProductServices>();
             builder.Services.AddScoped<ISalesService, SalesService>();
+            builder.Services.AddScoped<IReportService, ReportService>();
             builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 
         }

@@ -59,7 +59,8 @@ app.MapGroup("/api/v1/")
     .WithTags("ProductsAPI")
     .MapAuthenticationEndpoints()
     .MapProductEndpoints()
-    .MapSalesEndpoints();
+    .MapSalesEndpoints()
+    .MapReportsEndpoints();
 
 
 app.Run();
