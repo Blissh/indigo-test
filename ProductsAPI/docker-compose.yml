@@ -1,0 +1,29 @@
+# Docker Compose para desarrollo
+version: '3.8'
+
+services:
+  productsapi:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: productsapi
+    ports:
+      - "5000:5000"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:5000
+      # Connection Strings
+      - ConnectionStrings__SqlConnection=${SQL_CONNECTION:-Server=YOUR_SERVER;Database=YOUR_DB;User Id=YOUR_USER;Password=YOUR_PASSWORD;}
+      - ConnectionStrings__BlobStorageConnection=${BLOB_STORAGE_CONNECTION:-YOUR_BLOB_STORAGE_CONNECTION_STRING}
+      # JWT Configuration
+      - Jwt__Key=${JWT_KEY:-YOUR_JWT_SECRET_KEY_AT_LEAST_32_CHARACTERS_LONG!}
+      - Jwt__Issuer=${JWT_ISSUER:-ProductsAPI}
+      - Jwt__Audience=${JWT_AUDIENCE:-ProductsAPIUsers}
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:5000/api/v1/auth/login || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
