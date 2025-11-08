@@ -47,7 +47,7 @@ namespace ProductsAPI.API
             .Produces(StatusCodes.Status400BadRequest)
             .WithName("RegisterUser");
 
-            endpoints.MapGet("/auth/health", [Authorize] async (HttpContext context, IUserAuthService userAuthService) =>
+            endpoints.MapGet("/auth/health", [AllowAnonymous] () =>
             {
                 return Results.Ok(new { message = "API de autenticación está funcionando correctamente" });
             }).WithTags("Authentication")
