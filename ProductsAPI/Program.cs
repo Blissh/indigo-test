@@ -23,7 +23,8 @@ app.UseHttpsRedirection();
 
 app.MapGroup("/api/v1/")
     .WithTags("ProductsAPI")
-    .MapAuthenticationEndpoints();
+    .MapAuthenticationEndpoints()
+    .MapProductEndpoints();
 
 
 app.Run();
