@@ -7,6 +7,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Application\Interfaces\**" />
+    <Compile Remove="Application\Services\**" />
+    <Compile Remove="Domain\DTOs\**" />
+    <Content Remove="Application\Interfaces\**" />
+    <Content Remove="Application\Services\**" />
+    <Content Remove="Domain\DTOs\**" />
+    <EmbeddedResource Remove="Application\Interfaces\**" />
+    <EmbeddedResource Remove="Application\Services\**" />
+    <EmbeddedResource Remove="Domain\DTOs\**" />
+    <None Remove="Application\Interfaces\**" />
+    <None Remove="Application\Services\**" />
+    <None Remove="Domain\DTOs\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.10">
@@ -17,11 +32,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="tests\" />
-    <Folder Include="src\Domain\" />
-    <Folder Include="src\Application\" />
-    <Folder Include="src\Infrastructure\" />
-    <Folder Include="src\API\" />
+    <Folder Include="Tests\" />
+    <Folder Include="Application\" />
+    <Folder Include="API\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="ProductsAPI.sln" />
   </ItemGroup>
 
 </Project>
