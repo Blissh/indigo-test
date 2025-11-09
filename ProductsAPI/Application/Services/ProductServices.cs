@@ -61,7 +61,7 @@ namespace ProductsAPI.Application.Services
             {
                 _logger.LogInformation("Intentando obtener todos los productos");
                 var products = await _context.Products.ToListAsync();
-                if (products?.Count == 0)
+                if (products == null || products.Count == 0)
                 {
                     _logger.LogWarning("No se encontraron productos");
                     return null;

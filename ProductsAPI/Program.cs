@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.IdentityModel.Tokens;
 using ProductsAPI.API;
 using ProductsAPI.Extensions;
@@ -18,6 +19,20 @@ builder.AddApplicationServices();
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddOpenApi();
+
+// Configurar ForwardedHeaders para producción (cuando está detrás de un proxy como Render)
+if (!builder.Environment.IsDevelopment())
+{
+    builder.Services.Configure<ForwardedHeadersOptions>(options =>
+    {
+        options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | 
+                                   ForwardedHeaders.XForwardedProto | 
+                                   ForwardedHeaders.XForwardedHost;
+        // Confiar en todos los proxies (Render maneja esto)
+        options.KnownNetworks.Clear();
+        options.KnownProxies.Clear();
+    });
+}
 
 // Configurar CORS
 var allowedOrigins = builder.Configuration["Cors:AllowedOrigins"]?.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
@@ -70,7 +85,19 @@ if (app.Environment.IsDevelopment())
     app.MapScalarApiReference();
 }
 
-app.UseHttpsRedirection();
+// ForwardedHeaders debe ir ANTES de otros middlewares en producción
+// Esto permite que la app detecte correctamente el protocolo y la IP del cliente
+if (!app.Environment.IsDevelopment())
+{
+    app.UseForwardedHeaders();
+}
+
+// HTTPS Redirection solo en desarrollo
+// En Render/producción, el proxy maneja HTTPS, así que deshabilitamos el redirect
+if (app.Environment.IsDevelopment())
+{
+    app.UseHttpsRedirection();
+}
 
 // Configurar CORS
 app.UseCors("AllowFrontend");
