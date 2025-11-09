@@ -4,6 +4,12 @@
 # Valor por defecto si no se proporciona BACKEND_URL (para desarrollo local)
 BACKEND_URL=${BACKEND_URL:-http://productsapi:5000}
 
+# Si BACKEND_URL no tiene protocolo (solo hostname), agregar https://
+# Esto es necesario cuando Render usa property: host en lugar de property: url
+if echo "$BACKEND_URL" | grep -qvE '^https?://'; then
+    BACKEND_URL="https://${BACKEND_URL}"
+fi
+
 # Asegurarse de que BACKEND_URL no termine con /
 BACKEND_URL=$(echo "$BACKEND_URL" | sed 's:/*$::')
 
