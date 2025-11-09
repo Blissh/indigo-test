@@ -26,7 +26,17 @@ namespace ProductsAPI.Application.Services
                 
                 // Validar que todos los productos existen y obtener sus precios
                 var productIds = request.Items.Select(i => i.ProductId).Distinct().ToList();
-                var products = await _context.Products.Where(p => productIds.Contains(p.Id)).ToListAsync();
+                var products = await _context.Products
+                    .Where(p => productIds.Contains(p.Id))
+                    .ToDictionaryAsync(p => p.Id, p => p);
+
+                // Verificar que todos los productos existen
+                var missingProducts = productIds.Where(id => !products.ContainsKey(id)).ToList();
+                if (missingProducts.Any())
+                {
+                    _logger.LogWarning("Productos no encontrados: {ProductIds}", string.Join(", ", missingProducts));
+                    return null;
+                }
                     
                 // Crear los items de la venta
                 var saleItems = new List<SaleItems>();
@@ -93,7 +103,7 @@ namespace ProductsAPI.Application.Services
                         Id = item.Id,
                         SaleId = item.SaleId,
                         ProductId = item.ProductId,
-                        ProductName = products.FirstOrDefault(p => p.Id == item.ProductId)?.Name ?? "Producto desconocido",
+                        ProductName = products.ContainsKey(item.ProductId) ? products[item.ProductId].Name : "Producto desconocido",
                         Quantity = item.Quantity,
                         Price = item.Price,
                         Total = item.Total,
