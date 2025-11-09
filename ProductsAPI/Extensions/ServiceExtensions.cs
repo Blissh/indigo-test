@@ -5,12 +5,17 @@ using ProductsAPI.Application.Services;
 using ProductsAPI.Domain.Entities;
 using ProductsAPI.Infrastructure.Persistence;
 using ProductsAPI.Infrastructure.Services;
-using System.Reflection;
 
 namespace ProductsAPI.Extensions
 {
+    /// <summary>
+    /// Extensiones para registro de servicios de la aplicación.
+    /// </summary>
     public static class ServiceExtensions
     {
+        /// <summary>
+        /// Registra todos los servicios de la aplicación en el contenedor de dependencias.
+        /// </summary>
         public static void AddApplicationServices(this IHostApplicationBuilder builder)
         {
             if (builder == null) throw new ArgumentNullException(nameof(builder));
@@ -24,6 +29,7 @@ namespace ProductsAPI.Extensions
             builder.Services.AddScoped<IProductService, ProductServices>();
             builder.Services.AddScoped<ISalesService, SalesService>();
             builder.Services.AddScoped<IReportService, ReportService>();
+            builder.Services.AddScoped<IBlobStorageService, BlobStorageService>();
             builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 
         }

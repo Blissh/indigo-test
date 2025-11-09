@@ -1,5 +1,8 @@
 namespace ProductsAPI.Domain.DTOs.Data
 {
+    /// <summary>
+    /// Información de un producto en el ranking de ventas.
+    /// </summary>
     public class TopProductDto
     {
         public int ProductId { get; set; }

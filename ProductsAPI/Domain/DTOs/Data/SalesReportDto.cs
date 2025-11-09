@@ -1,5 +1,8 @@
 namespace ProductsAPI.Domain.DTOs.Data
 {
+    /// <summary>
+    /// Reporte completo de ventas con métricas y análisis.
+    /// </summary>
     public class SalesReportDto
     {
         public DateTime StartDate { get; set; }

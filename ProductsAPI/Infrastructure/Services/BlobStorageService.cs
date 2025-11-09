@@ -4,6 +4,9 @@ using Microsoft.Extensions.Logging;
 
 namespace ProductsAPI.Infrastructure.Services
 {
+    /// <summary>
+    /// Implementación del servicio de Azure Blob Storage para almacenamiento de archivos.
+    /// </summary>
     public class BlobStorageService : IBlobStorageService
     {
         private readonly IConfiguration _configuration;
@@ -49,6 +52,9 @@ namespace ProductsAPI.Infrastructure.Services
             }
         }
 
+        /// <summary>
+        /// Sube un archivo al contenedor especificado.
+        /// </summary>
         public async Task<string> UploadFileAsync(string containerName, string fileName, Stream fileStream, string? contentType = null)
         {
             if (string.IsNullOrWhiteSpace(containerName))
@@ -96,6 +102,9 @@ namespace ProductsAPI.Infrastructure.Services
             }
         }
 
+        /// <summary>
+        /// Elimina un archivo del contenedor.
+        /// </summary>
         public async Task<bool> DeleteFileAsync(string containerName, string fileName)
         {
             if (string.IsNullOrWhiteSpace(containerName))
@@ -131,6 +140,9 @@ namespace ProductsAPI.Infrastructure.Services
             }
         }
 
+        /// <summary>
+        /// Verifica si un archivo existe en el contenedor.
+        /// </summary>
         public async Task<bool> FileExistsAsync(string containerName, string fileName)
         {
             if (string.IsNullOrWhiteSpace(containerName))
@@ -153,6 +165,9 @@ namespace ProductsAPI.Infrastructure.Services
             }
         }
 
+        /// <summary>
+        /// Obtiene la URL pública de un archivo.
+        /// </summary>
         public async Task<string> GetFileUrlAsync(string containerName, string fileName)
         {
             if (string.IsNullOrWhiteSpace(containerName))
@@ -186,6 +201,9 @@ namespace ProductsAPI.Infrastructure.Services
             }
         }
 
+        /// <summary>
+        /// Descarga un archivo del contenedor.
+        /// </summary>
         public async Task<Stream> DownloadFileAsync(string containerName, string fileName)
         {
             if (string.IsNullOrWhiteSpace(containerName))
@@ -226,6 +244,9 @@ namespace ProductsAPI.Infrastructure.Services
             }
         }
 
+        /// <summary>
+        /// Lista todos los archivos del contenedor con el prefijo opcional.
+        /// </summary>
         public async Task<List<string>> ListFilesAsync(string containerName, string? prefix = null)
         {
             if (string.IsNullOrWhiteSpace(containerName))

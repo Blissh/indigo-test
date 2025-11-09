@@ -13,6 +13,9 @@ using System.Text;
 
 namespace ProductsAPI.Application.Services
 {
+    /// <summary>
+    /// Servicio de autenticación y registro de usuarios con JWT.
+    /// </summary>
     public class UserAuthService : IUserAuthService
     {
         private readonly ApplicationDbContext _context;
@@ -28,6 +31,9 @@ namespace ProductsAPI.Application.Services
             _logger = logger;
         }
 
+        /// <summary>
+        /// Autentica un usuario y genera un token JWT.
+        /// </summary>
         public async Task<AuthResponse?> LoginUser(LoginRequest request)
         {
             try
@@ -71,6 +77,9 @@ namespace ProductsAPI.Application.Services
             }
         }
 
+        /// <summary>
+        /// Registra un nuevo usuario en el sistema.
+        /// </summary>
         public async Task<UserResponse?> RegisterUser(RegisterUserRequest request)
         {
             try
@@ -112,6 +121,9 @@ namespace ProductsAPI.Application.Services
             }
         }
 
+        /// <summary>
+        /// Genera un token JWT para el usuario.
+        /// </summary>
         private string GenerateToken(User user)
         {
             try
@@ -165,6 +177,9 @@ namespace ProductsAPI.Application.Services
             }
         }
 
+        /// <summary>
+        /// Mapea una entidad User a UserResponse.
+        /// </summary>
         private UserResponse MapToUserResponse(User user)
         {
             return new UserResponse

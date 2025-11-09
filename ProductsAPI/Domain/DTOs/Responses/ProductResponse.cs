@@ -1,5 +1,8 @@
 namespace ProductsAPI.Domain.DTOs.Responses
 {
+    /// <summary>
+    /// Respuesta con información de un producto.
+    /// </summary>
     public class ProductResponse
     {
         public int Id { get; set; }

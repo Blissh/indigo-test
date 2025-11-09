@@ -7,6 +7,9 @@ using ProductsAPI.Infrastructure.Persistence;
 
 namespace ProductsAPI.Application.Services
 {
+    /// <summary>
+    /// Servicio para operaciones CRUD de productos.
+    /// </summary>
     public class ProductServices : IProductService
     {
         private readonly ApplicationDbContext _context;
@@ -18,6 +21,9 @@ namespace ProductsAPI.Application.Services
             _logger = logger;          
         }
         
+        /// <summary>
+        /// Obtiene un producto por su ID.
+        /// </summary>
         public async Task<ProductResponse?> GetProductById(int id)
         {
             try
@@ -46,6 +52,9 @@ namespace ProductsAPI.Application.Services
             }
         }
 
+        /// <summary>
+        /// Obtiene todos los productos disponibles.
+        /// </summary>
         public async Task<List<ProductResponse>?> GetProducts()
         {
             try
@@ -75,6 +84,9 @@ namespace ProductsAPI.Application.Services
             }
         }
 
+        /// <summary>
+        /// Crea un nuevo producto.
+        /// </summary>
         public async Task<ProductResponse?> CreateProduct(CreateProductRequest request)
         {
             try
@@ -110,7 +122,10 @@ namespace ProductsAPI.Application.Services
             }
         }
 
-            public async Task<ProductResponse?> UpdateProduct(int id, UpdateProductRequest request)
+        /// <summary>
+        /// Actualiza un producto existente.
+        /// </summary>
+        public async Task<ProductResponse?> UpdateProduct(int id, UpdateProductRequest request)
         {
             try
             {
@@ -145,6 +160,9 @@ namespace ProductsAPI.Application.Services
             }
         }
 
+        /// <summary>
+        /// Elimina un producto por su ID.
+        /// </summary>
         public async Task<ProductResponse?> DeleteProduct(int id)
         {
             try

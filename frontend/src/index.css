@@ -1,0 +1,130 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  font-family: 'IBM Plex Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  line-height: 1.5;
+  font-weight: 300;
+
+  /* Dark Modern Theme */
+  --bg-primary: #0a0e1a;
+  --bg-secondary: #141b2d;
+  --bg-card: #1a2332;
+  --bg-hover: #222b3d;
+  --text-primary: #e4e7eb;
+  --text-secondary: #9ca3af;
+  --accent-primary: #6366f1;
+  --accent-secondary: #8b5cf6;
+  --accent-gold: #f59e0b;
+  --border-color: #2d3748;
+  --border-hover: #4c5568;
+  --success: #10b981;
+  --danger: #ef4444;
+  --warning: #f59e0b;
+
+  color-scheme: dark;
+  color: #e4e7eb;
+  background-color: #0a0e1a;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: #0a0e1a;
+}
+
+#root {
+  min-height: 100vh;
+  background-color: #0a0e1a;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #e4e7eb;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 600;
+}
+
+button {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 400;
+}
+
+input, textarea, select {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 300;
+}
+
+a {
+  color: #6366f1;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+  color: #8b5cf6;
+}
+
+.btn-primary {
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.3);
+}
+
+.btn-primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(99, 102, 241, 0.4);
+  background: linear-gradient(135deg, #818cf8 0%, #a78bfa 100%);
+}
+
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  padding: 12px 24px;
+  background: #1a2332;
+  color: #e4e7eb;
+  border: 1px solid #2d3748;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-secondary:hover {
+  background: #222b3d;
+  border-color: #4c5568;
+  transform: translateY(-1px);
+}
+
+.error-container {
+  background: rgba(239, 68, 68, 0.1);
+  color: #fca5a5;
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  margin: 20px 0;
+}
+
+.error-message {
+  background: rgba(239, 68, 68, 0.1);
+  color: #fca5a5;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
