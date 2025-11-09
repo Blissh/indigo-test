@@ -2,6 +2,7 @@
 using ProductsAPI.Application.Interfaces;
 using ProductsAPI.Domain.DTOs.Requests;
 using ProductsAPI.Domain.DTOs.Responses;
+using ProductsAPI.Infrastructure.Services;
 
 namespace ProductsAPI.API
 {
@@ -75,6 +76,56 @@ namespace ProductsAPI.API
             .Produces(StatusCodes.Status404NotFound)
             .Produces(StatusCodes.Status401Unauthorized)
             .WithName("DeleteProduct");
+
+            endpoints.MapPost("/products/upload-image", async (HttpContext context, IBlobStorageService blobStorageService) =>
+            {
+                var form = await context.Request.ReadFormAsync();
+                var file = form.Files.GetFile("image");
+                
+                if (file == null || file.Length == 0)
+                {
+                    return Results.BadRequest(ApiResponse<string>.ErrorResponse("No se proporcionó ninguna imagen"));
+                }
+
+                // Validar tipo de archivo
+                var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif", ".webp" };
+                var fileExtension = Path.GetExtension(file.FileName).ToLowerInvariant();
+                if (!allowedExtensions.Contains(fileExtension))
+                {
+                    return Results.BadRequest(ApiResponse<string>.ErrorResponse("Tipo de archivo no permitido. Solo se permiten imágenes (jpg, jpeg, png, gif, webp)"));
+                }
+
+                // Validar tamaño (máximo 5MB)
+                const long maxFileSize = 5 * 1024 * 1024; // 5MB
+                if (file.Length > maxFileSize)
+                {
+                    return Results.BadRequest(ApiResponse<string>.ErrorResponse("El archivo es demasiado grande. Tamaño máximo: 5MB"));
+                }
+
+                try
+                {
+                    var containerName = "testindigo";
+                    var fileName = $"acuellar/{Guid.NewGuid()}{fileExtension}";
+                    var contentType = file.ContentType ?? "image/jpeg";
+
+                    using var fileStream = file.OpenReadStream();
+                    var imageUrl = await blobStorageService.UploadFileAsync(containerName, fileName, fileStream, contentType);
+
+                    return Results.Ok(ApiResponse<string>.SuccessResponse(imageUrl, "Imagen subida exitosamente"));
+                }
+                catch (Exception ex)
+                {
+                    return Results.BadRequest(ApiResponse<string>.ErrorResponse($"Error al subir la imagen: {ex.Message}"));
+                }
+            }).WithTags("Products")
+            .RequireAuthorization()
+            .WithSummary("Subir imagen de producto")
+            .WithDescription("Sube una imagen al blob storage y retorna la URL. La imagen se guarda en el contenedor 'testindigo' con prefijo 'acuellar/'")
+            .Accepts<IFormFile>("multipart/form-data")
+            .Produces<string>(StatusCodes.Status200OK)
+            .Produces(StatusCodes.Status400BadRequest)
+            .Produces(StatusCodes.Status401Unauthorized)
+            .WithName("UploadProductImage");
 
             return endpoints;
         }
