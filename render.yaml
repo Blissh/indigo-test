@@ -1,0 +1,43 @@
+services:
+  # Backend API Service
+  - type: web
+    name: productsapi
+    runtime: docker
+    dockerfilePath: ./ProductsAPI/Dockerfile
+    dockerContext: ./ProductsAPI
+    plan: starter
+    region: oregon
+    healthCheckPath: /api/v1/auth/login
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+      - key: ASPNETCORE_URLS
+        value: http://+:5000
+      - key: ConnectionStrings__SqlConnection
+        sync: false
+      - key: ConnectionStrings__BlobStorageConnection
+        sync: false
+      - key: Jwt__Key
+        sync: false
+      - key: Jwt__Issuer
+        value: ProductsAPI
+      - key: Jwt__Audience
+        value: ProductsAPIUsers
+      - key: Cors__AllowedOrigins
+        sync: false
+
+  # Frontend Service
+  - type: web
+    name: frontend
+    runtime: docker
+    dockerfilePath: ./frontend/Dockerfile
+    dockerContext: ./frontend
+    plan: starter
+    region: oregon
+    envVars:
+      - key: BACKEND_URL
+        fromService:
+          type: web
+          name: productsapi
+          property: url
+

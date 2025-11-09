@@ -31,6 +31,8 @@ services:
     container_name: frontend
     ports:
       - "3000:80"
+    environment:
+      - BACKEND_URL=http://productsapi:5000
     depends_on:
       - productsapi
     restart: unless-stopped
