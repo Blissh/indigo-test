@@ -39,5 +39,5 @@ services:
         fromService:
           type: web
           name: productsapi
-          property: host
+          property: url  # Usar 'url' en lugar de 'host' para obtener la URL completa con protocolo
 
