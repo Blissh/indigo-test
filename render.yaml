@@ -11,8 +11,8 @@ services:
     envVars:
       - key: ASPNETCORE_ENVIRONMENT
         value: Production
-      - key: ASPNETCORE_URLS
-        value: http://+:5000
+      # Render proporciona PORT automáticamente (por defecto 10000)
+      # ASPNETCORE_URLS se configura en Program.cs usando PORT
       - key: ConnectionStrings__SqlConnection
         sync: false
       - key: ConnectionStrings__BlobStorageConnection

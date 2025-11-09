@@ -7,6 +7,12 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Configurar puerto según documentación de Render
+// Render proporciona PORT automáticamente (por defecto 10000)
+// Debemos vincularnos a 0.0.0.0 para recibir tráfico del proxy de Render
+var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
+builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
+
 // Configurar servicios de la aplicación
 builder.AddApplicationServices();
 builder.Services.AddEndpointsApiExplorer();

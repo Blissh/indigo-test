@@ -31,16 +31,18 @@ COPY --from=publish /app/publish .
 RUN chown -R appuser:appuser /app
 USER appuser
 
-# Exponer puerto
-EXPOSE 5000
+# Exponer puerto (Render usa PORT variable, por defecto 10000)
+# Render detectará automáticamente el puerto si se vincula correctamente
+EXPOSE 10000
 
-# Variables de entorno por defecto
+# Variables de entorno por defecto para desarrollo local
+# En Render, PORT se proporciona automáticamente y ASPNETCORE_URLS se configura en render.yaml
 ENV ASPNETCORE_ENVIRONMENT=Development
-ENV ASPNETCORE_URLS=http://+:5000
 
-# Healthcheck - verifica que la API responda
+# Healthcheck - Render detectará el puerto automáticamente
+# Usamos un puerto por defecto para desarrollo local
 HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
-  CMD curl -s http://localhost:5000/api/v1/auth/login > /dev/null || exit 1
+  CMD curl -f http://localhost:${PORT:-10000}/api/v1/auth/login || curl -f http://localhost:5000/api/v1/auth/login || exit 1
 
 # Punto de entrada
 ENTRYPOINT ["dotnet", "ProductsAPI.dll"]
