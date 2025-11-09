@@ -1,5 +1,8 @@
 ﻿namespace ProductsAPI.Domain.Entities
 {
+    /// <summary>
+    /// Representa una venta en el sistema.
+    /// </summary>
     public class Sale
     {
         private readonly List<SaleItems> _items = new List<SaleItems>();

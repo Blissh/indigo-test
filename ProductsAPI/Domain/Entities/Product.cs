@@ -1,5 +1,8 @@
 ﻿namespace ProductsAPI.Domain.Entities
 {
+    /// <summary>
+    /// Representa un producto en el sistema.
+    /// </summary>
     public class Product
     {
         public int Id { get; set; }

@@ -1,0 +1,93 @@
+.sale-detail-page {
+  padding: 20px 0;
+}
+
+.sale-detail-card {
+  background: linear-gradient(135deg, #1a2332 0%, #141b2d 100%);
+  border: 1px solid #2d3748;
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.sale-info {
+  display: flex;
+  gap: 30px;
+  margin-bottom: 30px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid #2d3748;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.info-label {
+  color: #6366f1;
+  font-size: 14px;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.info-value {
+  color: #e4e7eb;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.info-value.total {
+  color: #6366f1;
+  font-size: 24px;
+}
+
+.sale-items h2 {
+  font-family: 'Nunito', sans-serif;
+  color: #e4e7eb;
+  margin: 0 0 20px 0;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.items-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.items-table thead {
+  background: linear-gradient(135deg, #141b2d 0%, #1a2332 100%);
+}
+
+.items-table th {
+  padding: 12px;
+  text-align: left;
+  color: #e4e7eb;
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+  border-bottom: 2px solid #2d3748;
+  letter-spacing: 0.5px;
+}
+
+.items-table td {
+  padding: 12px;
+  color: #e4e7eb;
+  border-bottom: 1px solid #2d3748;
+}
+
+.items-table tbody tr {
+  transition: all 0.2s;
+}
+
+.items-table tbody tr:hover {
+  background: rgba(99, 102, 241, 0.1);
+}
+
+@media (max-width: 768px) {
+  .sale-info {
+    flex-direction: column;
+    gap: 20px;
+  }
+}

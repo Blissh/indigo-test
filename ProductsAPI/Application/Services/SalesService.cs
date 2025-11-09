@@ -7,6 +7,9 @@ using ProductsAPI.Infrastructure.Persistence;
 
 namespace ProductsAPI.Application.Services
 {
+    /// <summary>
+    /// Servicio para gestión de ventas con validación de stock.
+    /// </summary>
     public class SalesService : ISalesService
     {
         private readonly ILogger<SalesService> _logger;
@@ -18,6 +21,9 @@ namespace ProductsAPI.Application.Services
             _context = context;
         }
 
+        /// <summary>
+        /// Crea una nueva venta validando stock y productos.
+        /// </summary>
         public async Task<SaleResponse?> CreateSale(CreateSaleRequest request)
         {
             try
@@ -119,6 +125,9 @@ namespace ProductsAPI.Application.Services
             }
         }
 
+        /// <summary>
+        /// Elimina una venta y sus items (cascada).
+        /// </summary>
         public async Task<SaleResponse?> DeleteSale(int id)
         {
             try
@@ -158,6 +167,9 @@ namespace ProductsAPI.Application.Services
             }
         }
 
+        /// <summary>
+        /// Obtiene una venta por su ID.
+        /// </summary>
         public async Task<SaleResponse?> GetSaleById(int id)
         {
             try
@@ -196,6 +208,9 @@ namespace ProductsAPI.Application.Services
             }
         }
 
+        /// <summary>
+        /// Obtiene todas las ventas del sistema.
+        /// </summary>
         public async Task<List<SaleResponse>?> GetSales()
         {
             try

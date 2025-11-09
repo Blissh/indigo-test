@@ -1,5 +1,8 @@
 namespace ProductsAPI.Domain.DTOs.Data
 {
+    /// <summary>
+    /// Resumen diario de ventas.
+    /// </summary>
     public class SalesSummaryDto
     {
         public DateTime Date { get; set; }

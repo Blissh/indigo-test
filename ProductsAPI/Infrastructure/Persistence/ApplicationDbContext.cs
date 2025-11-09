@@ -3,6 +3,9 @@ using ProductsAPI.Domain.Entities;
 
 namespace ProductsAPI.Infrastructure.Persistence
 {
+    /// <summary>
+    /// Contexto de base de datos principal de la aplicación.
+    /// </summary>
     public class ApplicationDbContext : DbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) 

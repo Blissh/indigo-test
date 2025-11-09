@@ -6,6 +6,9 @@ using ProductsAPI.Infrastructure.Persistence;
 
 namespace ProductsAPI.Application.Services
 {
+    /// <summary>
+    /// Servicio para generación de reportes de ventas y análisis.
+    /// </summary>
     public class ReportService : IReportService
     {
         private readonly ApplicationDbContext _context;
@@ -17,6 +20,9 @@ namespace ProductsAPI.Application.Services
             _logger = logger;
         }
 
+        /// <summary>
+        /// Genera un reporte de ventas en el rango de fechas especificado.
+        /// </summary>
         public async Task<SalesReportDto?> GenerateSalesReport(DateTime startDate, DateTime endDate)
         {
             try

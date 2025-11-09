@@ -1,0 +1,203 @@
+.sales-page {
+  padding: 20px 0;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.page-header h1 {
+  font-family: 'Nunito', sans-serif;
+  color: #e4e7eb;
+  font-size: 32px;
+  margin: 0;
+  font-weight: 700;
+}
+
+.sales-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 25px;
+}
+
+.create-sale-card {
+  background: linear-gradient(135deg, #1a2332 0%, #141b2d 100%);
+  border: 2px dashed #2d3748;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  border-radius: 16px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.create-sale-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at center, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.create-sale-card:hover::before {
+  opacity: 1;
+}
+
+.create-sale-card:hover {
+  border-color: #6366f1;
+  background: linear-gradient(135deg, #222b3d 0%, #1a2332 100%);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(99, 102, 241, 0.3),
+              0 0 0 1px rgba(99, 102, 241, 0.2);
+}
+
+.create-sale-content {
+  text-align: center;
+  padding: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.create-sale-icon {
+  font-size: 64px;
+  color: #6366f1;
+  font-weight: 300;
+  margin-bottom: 15px;
+  line-height: 1;
+  transition: all 0.3s;
+}
+
+.create-sale-card:hover .create-sale-icon {
+  color: #8b5cf6;
+  transform: scale(1.15) rotate(90deg);
+}
+
+.create-sale-content h3 {
+  font-family: 'Nunito', sans-serif;
+  color: #e4e7eb;
+  margin: 0 0 10px 0;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.create-sale-content p {
+  color: #9ca3af;
+  font-size: 14px;
+  margin: 0;
+}
+
+.sales-table-container {
+  background: linear-gradient(135deg, #1a2332 0%, #141b2d 100%);
+  border: 1px solid #2d3748;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.sales-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.sales-table thead {
+  background: linear-gradient(135deg, #141b2d 0%, #1a2332 100%);
+}
+
+.sales-table th {
+  padding: 15px;
+  text-align: left;
+  color: #e4e7eb;
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+  border-bottom: 2px solid #2d3748;
+  letter-spacing: 0.5px;
+}
+
+.sales-table td {
+  padding: 15px;
+  color: #e4e7eb;
+  border-bottom: 1px solid #2d3748;
+}
+
+.sales-table tbody tr {
+  transition: all 0.2s;
+}
+
+.sales-table tbody tr:hover {
+  background: rgba(99, 102, 241, 0.1);
+}
+
+.total-cell {
+  font-weight: 700;
+  color: #6366f1;
+  font-size: 16px;
+}
+
+.table-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-view {
+  padding: 6px 12px;
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+}
+
+.btn-view:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+  background: linear-gradient(135deg, #818cf8 0%, #a78bfa 100%);
+}
+
+.btn-delete {
+  padding: 6px 12px;
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+}
+
+.btn-delete:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+  background: linear-gradient(135deg, #f87171 0%, #ef4444 100%);
+}
+
+.btn-delete:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .sales-table-container {
+    overflow-x: auto;
+  }
+
+  .sales-table {
+    min-width: 600px;
+  }
+}

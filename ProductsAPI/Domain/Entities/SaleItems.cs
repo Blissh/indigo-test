@@ -1,5 +1,8 @@
 ﻿namespace ProductsAPI.Domain.Entities
 {
+    /// <summary>
+    /// Representa un item individual dentro de una venta.
+    /// </summary>
     public class SaleItems
     {
         public int Id { get; set; }
