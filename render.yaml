@@ -39,5 +39,5 @@ services:
         fromService:
           type: web
           name: productsapi
-          property: url
+          property: host
 
