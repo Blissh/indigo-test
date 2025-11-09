@@ -7,7 +7,7 @@ services:
     dockerContext: ./ProductsAPI
     plan: free  # Plan gratuito (se duerme después de 15 min de inactividad)
     region: oregon
-    healthCheckPath: /api/v1/auth/login
+    healthCheckPath: /api/v1/auth/health  # Usar endpoint GET en lugar de POST
     envVars:
       - key: ASPNETCORE_ENVIRONMENT
         value: Production

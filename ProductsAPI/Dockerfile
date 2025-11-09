@@ -41,8 +41,9 @@ ENV ASPNETCORE_ENVIRONMENT=Development
 
 # Healthcheck - Render detectará el puerto automáticamente
 # Usamos un puerto por defecto para desarrollo local
+# Usar /api/v1/auth/health que es un GET endpoint
 HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
-  CMD curl -f http://localhost:${PORT:-10000}/api/v1/auth/login || curl -f http://localhost:5000/api/v1/auth/login || exit 1
+  CMD curl -f http://localhost:${PORT:-10000}/api/v1/auth/health || curl -f http://localhost:5000/api/v1/auth/health || exit 1
 
 # Punto de entrada
 ENTRYPOINT ["dotnet", "ProductsAPI.dll"]
