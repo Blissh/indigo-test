@@ -333,14 +333,25 @@ FodyWeavers.xsd
 .idea/
 
 ##########################################################################
-# IMPORTANTE: Variables de entorno NO están siendo ignoradas
-# Los siguientes archivos SE SUBIRÁN al repositorio:
-# - appsettings.json
-# - appsettings.Development.json
-# - appsettings.Production.json
-# - .env (si se usa)
-# 
-# Esto es intencional para facilitar la ejecución del proyecto.
-# ADVERTENCIA: No incluyas información sensible real en estos archivos.
+# Configuration and Environment Files
 ##########################################################################
+# Ignore environment files
+.env
+.env.*
+
+# Ignore appsettings with real secrets
+# Recommended: keep appsettings.json as a template with placeholders
+# and ignore appsettings.local.json or use environment variables.
+ProductsAPI/appsettings.json
+ProductsAPI/appsettings.Development.json
+ProductsAPI/appsettings.Production.json
+# Or ignore all variations if you prefer:
+# **/appsettings*.json
+# !**/appsettings.template.json
+
+# If you want to keep templates, you can use:
+# ProductsAPI/appsettings.json (with placeholders) - tracked
+# ProductsAPI/appsettings.Local.json - ignored
+##########################################################################
+
 
